@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AnimalShelterProject.Migrations
 {
     [DbContext(typeof(ShelterDb))]
-    [Migration("20230804171538_apppertable")]
-    partial class apppertable
+    [Migration("20230804201452_newstart")]
+    partial class newstart
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,7 +36,7 @@ namespace AnimalShelterProject.Migrations
                     b.Property<int?>("Age")
                         .HasColumnType("int");
 
-                    b.Property<int>("PersonId")
+                    b.Property<int>("ApplicationId")
                         .HasColumnType("int");
 
                     b.Property<string>("PetName")
@@ -45,7 +45,7 @@ namespace AnimalShelterProject.Migrations
 
                     b.HasKey("AnimalId");
 
-                    b.HasIndex("PersonId");
+                    b.HasIndex("ApplicationId");
 
                     b.ToTable("Animals");
                 });
@@ -108,13 +108,13 @@ namespace AnimalShelterProject.Migrations
 
             modelBuilder.Entity("AnimalShelterProject.Models.Animal", b =>
                 {
-                    b.HasOne("AnimalShelterProject.Models.Person", "Person")
+                    b.HasOne("AnimalShelterProject.Models.Application", "Application")
                         .WithMany("Animal")
-                        .HasForeignKey("PersonId")
+                        .HasForeignKey("ApplicationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Person");
+                    b.Navigation("Application");
                 });
 
             modelBuilder.Entity("AnimalShelterProject.Models.Application", b =>
@@ -128,10 +128,13 @@ namespace AnimalShelterProject.Migrations
                     b.Navigation("Person");
                 });
 
-            modelBuilder.Entity("AnimalShelterProject.Models.Person", b =>
+            modelBuilder.Entity("AnimalShelterProject.Models.Application", b =>
                 {
                     b.Navigation("Animal");
+                });
 
+            modelBuilder.Entity("AnimalShelterProject.Models.Person", b =>
+                {
                     b.Navigation("Application");
                 });
 #pragma warning restore 612, 618

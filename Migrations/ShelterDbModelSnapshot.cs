@@ -106,7 +106,7 @@ namespace AnimalShelterProject.Migrations
             modelBuilder.Entity("AnimalShelterProject.Models.Animal", b =>
                 {
                     b.HasOne("AnimalShelterProject.Models.Application", "Application")
-                        .WithMany()
+                        .WithMany("Animal")
                         .HasForeignKey("ApplicationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -123,6 +123,11 @@ namespace AnimalShelterProject.Migrations
                         .IsRequired();
 
                     b.Navigation("Person");
+                });
+
+            modelBuilder.Entity("AnimalShelterProject.Models.Application", b =>
+                {
+                    b.Navigation("Animal");
                 });
 
             modelBuilder.Entity("AnimalShelterProject.Models.Person", b =>

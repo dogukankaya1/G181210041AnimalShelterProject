@@ -12,20 +12,6 @@ namespace AnimalShelterProject.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Applications",
-                columns: table => new
-                {
-                    ApplicationId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    isSubmit = table.Column<bool>(type: "bit", nullable: false),
-                    isApproved = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Applications", x => x.ApplicationId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Persons",
                 columns: table => new
                 {
@@ -43,6 +29,27 @@ namespace AnimalShelterProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Applications",
+                columns: table => new
+                {
+                    ApplicationId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    isSubmit = table.Column<bool>(type: "bit", nullable: false),
+                    isApproved = table.Column<bool>(type: "bit", nullable: false),
+                    PersonId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Applications", x => x.ApplicationId);
+                    table.ForeignKey(
+                        name: "FK_Applications_Persons_PersonId",
+                        column: x => x.PersonId,
+                        principalTable: "Persons",
+                        principalColumn: "PersonId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Animals",
                 columns: table => new
                 {
@@ -50,22 +57,27 @@ namespace AnimalShelterProject.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PetName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     Age = table.Column<int>(type: "int", nullable: true),
-                    PersonId = table.Column<int>(type: "int", nullable: false)
+                    ApplicationId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Animals", x => x.AnimalId);
                     table.ForeignKey(
-                        name: "FK_Animals_Persons_PersonId",
-                        column: x => x.PersonId,
-                        principalTable: "Persons",
-                        principalColumn: "PersonId",
+                        name: "FK_Animals_Applications_ApplicationId",
+                        column: x => x.ApplicationId,
+                        principalTable: "Applications",
+                        principalColumn: "ApplicationId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Animals_PersonId",
+                name: "IX_Animals_ApplicationId",
                 table: "Animals",
+                column: "ApplicationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Applications_PersonId",
+                table: "Applications",
                 column: "PersonId");
         }
 

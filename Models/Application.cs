@@ -10,7 +10,7 @@
         public Person Person { get; set; }
         //public Animal Animal { get; set; }
 
-        //public ICollection<Animal>? Animal { get; set; }
+        public ICollection<Animal>? Animal { get; set; }
         //applying for many animals in application
 
     }
