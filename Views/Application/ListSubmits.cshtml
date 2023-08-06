@@ -1,0 +1,59 @@
+﻿@*@model AnimalShelterProject.Models.Application*@
+@model IEnumerable<AnimalShelterProject.Models.Application>
+@using AnimalShelterProject.Models
+
+
+@{
+    ViewData["Title"] = "ListSubmits";
+}
+
+<h1>ListSubmits</h1>
+
+<div>
+    <h4>Application</h4>
+    <hr />
+
+    @foreach (var submit in Model)
+    {
+            <dl class="row">
+               
+            <dt class = "col-sm-2">
+                    @Html.DisplayNameFor(model => submit.Person)
+            </dt>
+            <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => submit.Person.Name)
+                </dd>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => submit.Person.BirthDate)
+                </dd>
+                    <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => submit.Person.PhoneNumber)
+                </dd>
+                    <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => submit.Person.Address)
+                        </dd>
+                        <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => submit.Animal) @*include lazım petname için*@
+                        </dd>
+
+        </dl>
+    }
+
+    @* <dt class = "col-sm-2">
+    @Html.DisplayNameFor(model => model.isSubmit)
+    </dt>
+    <dd class = "col-sm-10">
+    @Html.DisplayFor(model => model.isSubmit)
+    </dd>*@
+    @*<dt class = "col-sm-2">
+    @Html.DisplayNameFor(model => model.isApproved)
+    </dt>
+    <dd class = "col-sm-10">
+    @Html.DisplayFor(model => model.isApproved)
+    </dd>*@
+    
+</div>
+<div>
+    
+    <a asp-action="Index">Back to List</a>
+</div>
